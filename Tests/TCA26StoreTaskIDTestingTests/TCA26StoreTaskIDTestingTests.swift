@@ -16,7 +16,7 @@ func parentChildOnMount() async {
 
   await store.receive(\.receivePosts) {
     $0.children = [
-      Child.State.DebugSnapshot(
+      Child.State(
         id: UUID(0),
         post: Post(author: "Rhys", text: "Hello, World")
       )

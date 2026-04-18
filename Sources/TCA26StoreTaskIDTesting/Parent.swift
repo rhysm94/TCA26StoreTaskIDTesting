@@ -9,11 +9,10 @@ import ComposableArchitecture
 
 @Feature
 struct Parent {
-  @DebugSnapshotState
   struct State {
     @StoreTaskID var loadingChildren
 
-    var children: [Child.State] = []
+    var children: IdentifiedArrayOf<Child.State> = []
   }
 
   enum Action {
@@ -28,9 +27,11 @@ struct Parent {
     Update { state, action in
       switch action {
       case let .receivePosts(posts):
-        state.children = posts.map { post in
-          Child.State(id: uuid(), post: post)
-        }
+        state.children = IdentifiedArray(
+          uniqueElements: posts.map { post in
+            Child.State(id: uuid(), post: post)
+          }
+        )
 
       case .child:
         break
