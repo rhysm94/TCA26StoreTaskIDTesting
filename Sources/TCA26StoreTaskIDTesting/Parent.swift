@@ -12,6 +12,7 @@ struct Parent {
   struct State {
     @StoreTaskID var loadingChildren
 
+    @DebugSnapshotConvertible
     var children: IdentifiedArrayOf<Child.State> = []
   }
 
@@ -40,8 +41,8 @@ struct Parent {
     .forEach(\.children, action: \.child) {
       Child()
     }
-    .onMount { _ in
-      store.addTask(id: store.loadingChildren, name: "Loading Posts") {
+    .onMount { state in
+      store.addTask(id: state.loadingChildren, name: "Loading Posts") {
         let posts = try await postFetcher.fetch()
         try store.send(.receivePosts(posts))
       }

@@ -14,7 +14,14 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/pointfreeco/TCA26", revision: "9a8b8f9"),
+    .package(url: "https://github.com/pointfreeco/TCA26", branch: "main"),
+    .package(
+      url: "https://github.com/pointfreeco/swift-debug-snapshots",
+      branch: "main",
+      traits: [
+        "IdentifiedCollections"
+      ]
+    )
   ],
   targets: [
     // Targets are the basic building blocks of a package, defining a module or a test suite.
